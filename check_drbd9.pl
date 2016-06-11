@@ -183,6 +183,7 @@ sub HELP_MESSAGE()
    printf STDERR ("  -c state        change specified state to 'CRIT' (example: SyncSource)\n");
    printf STDERR ("  -h              display this message\n");
    printf STDERR ("  -i pattern      include resource name or resource minor (default: all)\n");
+   printf STDERR ("  -l              list all OKAY resources after CRIT and WARN resources\n");
    printf STDERR ("  -o state        change specified state to 'OKAY' (example: StandAlone)\n");
    printf STDERR ("  -q              quiet output\n");
    printf STDERR ("  -t              display terse details\n");
@@ -377,11 +378,12 @@ sub chk_drbd_config($)
    $cnf->{'okay'}                    = [];
    $cnf->{'unknown'}                 = [];
    $cnf->{'all'}                     = [];
+   $cnf->{'list'}                    = [];
 
    $Getopt::Std::STANDARD_HELP_VERSION=1;
 
    $opt = {};
-   if (!(getopts("d:c:hi:o:qtvVw:x:", $opt)))
+   if (!(getopts("d:c:hi:lo:qtvVw:x:", $opt)))
    {
       HELP_MESSAGE();
       return(3);
@@ -398,6 +400,7 @@ sub chk_drbd_config($)
    $cnf->{'terse'}   = defined($opt->{'t'}) ? $opt->{'t'} : 0;
    $cnf->{'quiet'}   = defined($opt->{'q'}) ? $opt->{'q'} : 0;
    $cnf->{'verbose'} = defined($opt->{'v'}) ? $opt->{'v'} : 0;
+   $cnf->{'list_all'} = defined($opt->{'l'}) ? $opt->{'l'} : 0;
 
    # override errors for okay
    $list = defined($opt->{'o'}) ? $opt->{'o'} : '';
@@ -829,7 +832,7 @@ sub main(@)
 
 
    # prints OKAY resources
-   if (($cnf->{'terse'} == 0) && ($cnf->{'verbose'} == 0))
+   if (($cnf->{'terse'} == 0) && ($cnf->{'verbose'} == 0) && ($cnf->{'list_all'} == 1))
    {
       for $res (sort({$a->{'name'} cmp $b->{'name'}} @{$cnf->{'okay'}}))
       {
