@@ -19,16 +19,47 @@ check_drbd9.pl:
 
         Usage: check_drbd9.pl [OPTIONS]
         OPTIONS:
-          -c state        change specified state to 'CRIT' return code (example: SyncSource)
+          -c state        change specified state to 'CRIT' (example: SyncSource)
+          -d pattern      same as '-i', added for compatibility with legacy check
           -h              display this message
           -i pattern      include resource name or resource minor (default: all)
-          -o state        change specified state to 'OKAY' return code (example: StandAlone)
+          -l              list all OKAY resources after CRIT and WARN resources
+          -o state        change specified state to 'OKAY' (example: StandAlone)
           -q              quiet output
           -t              display terse details
           -V              display program version
           -v              display OKAY resources
-          -w state        change specified state to 'WARN' return code (example: SyncTarget)
+          -w state        change specified state to 'WARN' (example: SyncTarget)
           -x pattern      exclude resource name or resource minor
+
+        ROLE STATES:
+           primary (OKAY)            secondary (OKAY)          unconfigured (CRIT)
+           unknown (WARN)
+
+        LOCAL DISK STATES:
+           attaching (WARN)          consistent (OKAY)         detaching (WARN)
+           diskless (CRIT)           dunknown (WARN)           failed (CRIT)
+           inconsistent (CRIT)       negotiating (WARN)        outdated (CRIT)
+           uptodate (OKAY)
+
+        CONNECTION STATES:
+           brokenpipe (CRIT)         connected (OKAY)          connecting (WARN)
+           disconnecting (WARN)      networkfailure (CRIT)     protocolerror (CRIT)
+           standalone (WARN)         teardown (WARN)           timeout (CRIT)
+           unconnected (CRIT)        wfconnection (CRIT)       wfreportparams (CRIT)
+
+        PEER DISK STATES:
+           attaching (WARN)          consistent (OKAY)         detaching (WARN)
+           diskless (WARN)           dunknown (WARN)           failed (WARN)
+           inconsistent (WARN)       negotiating (WARN)        outdated (WARN)
+           uptodate (OKAY)
+
+        REPLICATION STATES:
+           ahead (WARN)              behind (CRIT)             established (OKAY)
+           off (WARN)                pausedsyncs (CRIT)        pausedsynct (CRIT)
+           startingsyncs (WARN)      startingsynct (WARN)      syncsource (WARN)
+           synctarget (WARN)         verifys (WARN)            verifyt (WARN)
+           wfbitmaps (CRIT)          wfbitmapt (CRIT)          wfsyncuuid (WARN)
 
 
 Example Output
