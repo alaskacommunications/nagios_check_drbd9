@@ -12,3 +12,22 @@ This package contains the following Nagios checks:
    * check_drbd9.pl   - Checks DRBD resources
    * dump_drbd9.pl    - Dumps resource information (used for debugging)
 
+Script Usage
+------------
+
+check_drbd9.pl:
+
+        Usage: check_drbd9.pl [OPTIONS]
+        OPTIONS:
+          -c state        change specified state to 'CRIT' return code (example: SyncSource)
+          -h              display this message
+          -i pattern      include resource name or resource minor (default: all)
+          -o state        change specified state to 'OKAY' return code (example: StandAlone)
+          -q              quiet output
+          -t              display terse details
+          -V              display program version
+          -v              display OKAY resources
+          -w state        change specified state to 'WARN' return code (example: SyncTarget)
+          -x pattern      exclude resource name or resource minor
+
+
