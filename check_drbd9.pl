@@ -569,6 +569,15 @@ sub chk_drbd_walk($)
 
    # builds resources
    $sh_resources = `/usr/sbin/drbdadm sh-resources 2> /dev/null`;
+   if ($? != 0)
+   {
+      printf("DRBD UNKNOWN: error running drbdadm\n");
+      return(3);
+   };
+   if ($sh_resources =~ /^$/)
+   {
+      return(0);
+   };
    if ($sh_resources =~ /^([-_.\w\s]+)$/)
    {
       $sh_resources = $1;
@@ -589,6 +598,11 @@ sub chk_drbd_walk($)
 
    # read events
    @lines = `/usr/sbin/drbdsetup events2 --now --statistics all 2> /dev/null`;
+   if ($? != 0)
+   {
+      printf("DRBD UNKNOWN: error running drbdsetup\n");
+      return(3);
+   };
    chomp(@lines);
 
 
