@@ -181,6 +181,7 @@ sub HELP_MESSAGE()
    printf STDERR ("Usage: %s [OPTIONS]\n", $PROGRAM_NAME);
    printf STDERR ("OPTIONS:\n");
    printf STDERR ("  -c state        change specified state to 'CRIT' (example: SyncSource)\n");
+   printf STDERR ("  -d pattern      same as '-i', added for compatibility with legacy check\n");
    printf STDERR ("  -h              display this message\n");
    printf STDERR ("  -i pattern      include resource name or resource minor (default: all)\n");
    printf STDERR ("  -l              list all OKAY resources after CRIT and WARN resources\n");
