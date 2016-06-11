@@ -180,15 +180,15 @@ sub HELP_MESSAGE()
 {
    printf STDERR ("Usage: %s [OPTIONS]\n", $PROGRAM_NAME);
    printf STDERR ("OPTIONS:\n");
-   printf STDERR ("  -c state        change specified state to 'CRIT' return code (example: SyncSource)\n");
+   printf STDERR ("  -c state        change specified state to 'CRIT' (example: SyncSource)\n");
    printf STDERR ("  -h              display this message\n");
    printf STDERR ("  -i pattern      include resource name or resource minor (default: all)\n");
-   printf STDERR ("  -o state        change specified state to 'OKAY' return code (example: StandAlone)\n");
+   printf STDERR ("  -o state        change specified state to 'OKAY' (example: StandAlone)\n");
    printf STDERR ("  -q              quiet output\n");
    printf STDERR ("  -t              display terse details\n");
    printf STDERR ("  -V              display program version\n");
    printf STDERR ("  -v              display OKAY resources\n");
-   printf STDERR ("  -w state        change specified state to 'WARN' return code (example: SyncTarget)\n");
+   printf STDERR ("  -w state        change specified state to 'WARN' (example: SyncTarget)\n");
    printf STDERR ("  -x pattern      exclude resource name or resource minor\n");
    printf STDERR ("\n");
    printf STDERR ("ROLE STATES:\n");
