@@ -505,25 +505,23 @@ sub chk_drbd_nagios_code($)
    my $cnf = shift;
    my $count;
 
-   $count = @{$cnf->{'crit'}};
-   if ($count != 0)
+   if ($cnf->{'count_crit'} != 0)
    {
       return(2);
    };
 
-   $count = @{$cnf->{'warn'}};
-   if ($count != 0)
+   if ($cnf->{'count_warn'} != 0)
    {
       return(1);
    };
 
 
-   $count = @{$cnf->{'okay'}};
-   if ($count != 0)
+   if ($cnf->{'count_okay'} != 0)
    {
-      return(3);
+      return(0);
    };
-   return(0);
+
+   return(3);
 }
 
 
