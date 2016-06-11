@@ -1,13 +1,20 @@
 Nagios DRBD 9 Checks
 ====================
 
-Nagios plugins for monitoring DRBD resources. The following DRBD versions
-are supported:
+This package contains Nagios plugins for monitoring DRBD resources.  The
+plugins use output from the following sources to determine the state of each
+resource:
+
+   * `/proc/drbd`
+   * `/usr/sbin/drbdadm sh-resources`
+   * `/usr/sbin/drbdetup events2 --now --statistics`
+
+The following DRBD kernel modules and DRBD Utilities are supported:
 
    * DRBD 8.4.x with drbd-utils 8.9.6
    * DRBD 9.0.x with drbd-utils 8.9.6
 
-This package contains the following Nagios checks:
+This package contains the following scripts:
 
    * check_drbd9.pl   - Checks DRBD resources
    * dump_drbd9.pl    - Dumps resource information (used for debugging)
