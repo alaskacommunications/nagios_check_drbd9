@@ -551,11 +551,20 @@ sub chk_drbd_walk($)
    chomp(@lines = <FD>);
    close(FD);
    ($cnf->{'version'})    =  grep(/^version: /i,  @lines);
-   $cnf->{'version'}      =~ s/^version: //gi;
+   if ((defined($cnf->{'version'})))
+   {
+      $cnf->{'version'}      =~ s/^version: //gi;
+   };
    ($cnf->{'git-hash'})   = grep(/^GIT-hash: /i, @lines);
-   $cnf->{'git-hash'}     =~ s/^GIT-hash: //gi;
+   if ((defined($cnf->{'git-hash'})))
+   {
+      $cnf->{'git-hash'}     =~ s/^GIT-hash: //gi;
+   };
    ($cnf->{'transports'}) = grep(/^Transports /i, @lines);
-   $cnf->{'transports'}   =~ s/^Transports //gi;
+   if ((defined($cnf->{'transports'})))
+   {
+      $cnf->{'transports'}   =~ s/^Transports //gi;
+   };
 
 
    # builds resources
