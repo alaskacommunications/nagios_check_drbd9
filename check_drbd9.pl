@@ -156,6 +156,7 @@ our $STATES =
 # +-=-=-=-=-=-=-=+
 
 sub HELP_MESSAGE();
+sub HELP_STATES($);
 sub VERSION_MESSAGE();
 sub chk_drbd_analyze($);
 sub chk_drbd_config($);
@@ -190,6 +191,65 @@ sub HELP_MESSAGE()
    printf STDERR ("  -w state        change specified state to 'WARN' return code (example: SyncTarget)\n");
    printf STDERR ("  -x pattern      exclude resource name or resource minor\n");
    printf STDERR ("\n");
+   printf STDERR ("ROLE STATES:\n");
+   HELP_STATES('role');
+   printf STDERR ("\n");
+   printf STDERR ("LOCAL DISK STATES:\n");
+   HELP_STATES('disk');
+   printf STDERR ("\n");
+   printf STDERR ("CONNECTION STATES:\n");
+   HELP_STATES('conn');
+   printf STDERR ("\n");
+   printf STDERR ("PEER DISK STATES:\n");
+   HELP_STATES('peer-disk');
+   printf STDERR ("\n");
+   printf STDERR ("REPLICATION STATES:\n");
+   HELP_STATES('repl');
+   printf STDERR ("\n");
+   return(0);
+};
+
+
+sub HELP_STATES($)
+{
+   my $type = shift;
+
+   my $count;
+   my $left;
+   my $center;
+   my $right;
+   my $state;
+   my @states;
+
+   if (!(defined($STATES->{$type})))
+   {
+      return(0);
+   };
+
+   @states = sort( keys( %{$STATES->{$type}} ) );
+
+   for($count = 0; ($count < @states); $count += 3)
+   {
+      $state = $STATES->{$type}->{$states[$count]};
+      $left  = $states[$count] . ' (' . $state->{'state'} . ')';
+
+      $center = '';
+      if (($count+1) < @states)
+      {
+         $state = $STATES->{$type}->{$states[$count+1]};
+         $center = $states[$count+1] . ' (' . $state->{'state'} . ')';
+      };
+
+      $right = '';
+      if (($count+2) < @states)
+      {
+         $state = $STATES->{$type}->{$states[$count+2]};
+         $right = $states[$count+2] . ' (' . $state->{'state'} . ')';
+      };
+
+      printf STDERR ("   %-25s %-25s %s\n", $left, $center, $right);
+   };
+
    return(0);
 };
 
