@@ -394,12 +394,12 @@ sub chk_drbd_config($)
       return(3);
    };
 
-   $cnf->{'include'} = defined($opt->{'d'}) ? $opt->{'d'} : $cnf->{'include'};
-   $cnf->{'include'} = defined($opt->{'i'}) ? $opt->{'i'} : $cnf->{'include'};
-   $cnf->{'exclude'} = defined($opt->{'x'}) ? $opt->{'x'} : $cnf->{'exclude'};
-   $cnf->{'terse'}   = defined($opt->{'t'}) ? $opt->{'t'} : 0;
-   $cnf->{'quiet'}   = defined($opt->{'q'}) ? $opt->{'q'} : 0;
-   $cnf->{'verbose'} = defined($opt->{'v'}) ? $opt->{'v'} : 0;
+   $cnf->{'include'}  = defined($opt->{'d'}) ? $opt->{'d'} : $cnf->{'include'};
+   $cnf->{'include'}  = defined($opt->{'i'}) ? $opt->{'i'} : $cnf->{'include'};
+   $cnf->{'exclude'}  = defined($opt->{'x'}) ? $opt->{'x'} : $cnf->{'exclude'};
+   $cnf->{'terse'}    = defined($opt->{'t'}) ? $opt->{'t'} : 0;
+   $cnf->{'quiet'}    = defined($opt->{'q'}) ? $opt->{'q'} : 0;
+   $cnf->{'verbose'}  = defined($opt->{'v'}) ? $opt->{'v'} : 0;
    $cnf->{'list_all'} = defined($opt->{'l'}) ? $opt->{'l'} : 0;
 
    # override errors for okay
