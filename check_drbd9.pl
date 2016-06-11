@@ -568,7 +568,7 @@ sub chk_drbd_walk($)
 
 
    # builds resources
-   $sh_resources = `/usr/sbin/drbdadm sh-resources`;
+   $sh_resources = `/usr/sbin/drbdadm sh-resources 2> /dev/null`;
    if ($sh_resources =~ /^([-_.\w\s]+)$/)
    {
       $sh_resources = $1;
@@ -588,7 +588,7 @@ sub chk_drbd_walk($)
 
 
    # read events
-   @lines = `/usr/sbin/drbdsetup events2 --now --statistics all`;
+   @lines = `/usr/sbin/drbdsetup events2 --now --statistics all 2> /dev/null`;
    chomp(@lines);
 
 
