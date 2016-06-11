@@ -412,7 +412,7 @@ sub chk_drbd_detail($)
    for $key (sort(keys(%{$res->{'devs'}})))
    {
       $dev = $res->{'devs'}->{$key};
-      printf(".. vol:%s disk:%s minor:%s size:%iMB\n",
+      printf("vol:%s disk:%s minor:%s size:%iMB\n",
          $key,
          $dev->{'disk'},
          $dev->{'minor'},
@@ -423,7 +423,7 @@ sub chk_drbd_detail($)
    for $key (sort(keys(%{$res->{'nodes'}})))
    {
       $node = $res->{'nodes'}->{$key};
-      printf(".. %s role:%s conn:%s\n", $key, $node->{'role'}, $node->{'connection'});
+      printf("%s role:%s conn:%s\n", $key, $node->{'role'}, $node->{'connection'});
 
       # loop through peer-devices
       for $key (sort(keys(%{$node->{'devs'}})))
@@ -432,7 +432,7 @@ sub chk_drbd_detail($)
          $sync = $dev->{'out-of-sync'} * 10000;
          $sync = $sync / $res->{'devs'}->{$key}->{'size'};
          $sync = 100 - int($sync) / 100;
-         printf(".. .. vol:%s peer:%s repl:%s sync:%.2f%%\n",
+         printf(".. vol:%s peer:%s repl:%s sync:%.2f%%\n",
             $key,
             $dev->{'peer-disk'},
             $dev->{'replication'},
