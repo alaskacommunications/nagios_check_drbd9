@@ -432,7 +432,7 @@ sub chk_drbd_detail($)
          $sync = $dev->{'out-of-sync'} * 10000;
          $sync = $sync / $res->{'devs'}->{$key}->{'size'};
          $sync = 100 - int($sync) / 100;
-         printf(".. .. vol:%s peer:%s repl:%s sync:%.2f\n",
+         printf(".. .. vol:%s peer:%s repl:%s sync:%.2f%%\n",
             $key,
             $dev->{'peer-disk'},
             $dev->{'replication'},
