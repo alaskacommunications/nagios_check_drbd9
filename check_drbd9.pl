@@ -41,7 +41,6 @@
 use warnings;
 use strict;
 use Getopt::Std;
-use Data::Dumper;
 
 $Data::Dumper::Indent = 1;
 
