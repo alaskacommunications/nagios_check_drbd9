@@ -146,22 +146,19 @@ Another example:
         syzdek@hypervisor$
 
 
-Example Nagios Configurations (Command Objects)
------------------------------------------------
+Example Nagios Configurations
+-----------------------------
 
 Example command object configurations:
 
         # Check all resources, treat StandAlone as OKAY
         define command{
            command_name    check_drbd
-           command_line    $USER1$/check_drbd9.pl -o StandAlone -i all
+           command_line    $USER1$/check_drbd9.pl -o StandAlone -i all -l
         }
 
 By default, all resources are checked.
 
-
-Example Nagios Configurations (Service Objects)
------------------------------------------------
 
 DRBD service checks:
 
@@ -173,4 +170,41 @@ DRBD service checks:
            check_command           check_drbd
         }
 
+
+Example NRPE Configuration
+--------------------------
+
+NRPE Configuration:
+
+        nrpe_user=nagios
+        nrpe_group=nagios
+
+        allowed_hosts=10.0.0.0/8,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+ 
+        dont_blame_nrpe=0
+
+        allow_bash_command_substitution=0
+
+        command[check_drbd]=/usr/libexec/nagios/check_drbd -d All -o StandAlone
+
+Due to buffer limitations of NRPE (1024 bytes as of this writting), it is
+recommended that the `-l` option not be used on systems with more than than
+3-4 resources.  If CRIT and WARN messages are being truncated, enable terse
+output with `-t` to print each one line messages for CRIT and WARN states.
+
+Nagios Configuration:
+
+        define command{
+                command_name    check_nrpe
+                command_line    $USER1$/check_nrpe -u -H $HOSTADDRESS$ -c $ARG1$
+                }
+
+
+        define service{
+                use                     generic-service
+                host_name               hypervisorA.foo.org
+                display_name            DRBD
+                service_description     DRBD
+                check_command           check_nrpe!check_drbd
+        }
 
