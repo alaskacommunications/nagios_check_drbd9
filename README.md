@@ -72,7 +72,7 @@ check_drbd9.pl:
 Example Output
 --------------
 
-        syzdek@hypervisor$ ./check_drbd9.pl   
+        syzdek@hypervisor$ ./check_drbd9.pl -o StandAlone -d all -l
         DRBD: 1 warn, 20 okay|
         -
         version:    8.4.7-1 (api:1/proto:86-101)
@@ -110,7 +110,7 @@ Example Output
 
 Another example:
 
-        syzdek@hypervisor$ ./check_drbd9.pl -o StandAlone
+        syzdek@hypervisor$ ./check_drbd9.pl -o StandAlone -d all -l
         DRBD: 1 warn, 20 okay|
         -
         version:    9.0.2-1 (api:2/proto:86-111)
@@ -154,7 +154,7 @@ Example command object configurations:
         # Check all resources, treat StandAlone as OKAY
         define command{
            command_name    check_keepalived_vrrp
-           command_line    $USER1$/check_drbd.pl -o StandAlone -i all
+           command_line    $USER1$/check_drbd9.pl -o StandAlone -i all
         }
 
 By default, all resources are checked.
