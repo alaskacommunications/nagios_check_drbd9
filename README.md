@@ -153,7 +153,7 @@ Example command object configurations:
 
         # Check all resources, treat StandAlone as OKAY
         define command{
-           command_name    check_keepalived_vrrp
+           command_name    check_drbd
            command_line    $USER1$/check_drbd9.pl -o StandAlone -i all
         }
 
