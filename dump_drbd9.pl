@@ -48,7 +48,7 @@ $Data::Dumper::Indent = 1;
 $|++;
 
 our $PROGRAM_NAME    = 'dump_drbd9.pl';
-our $VERSION         = '0.0';
+our $VERSION         = '0.1';
 our $DESCRIPTION     = 'Dump hash structure of DRBD resources';
 our $AUTHOR          = 'David M. Syzdek <david@syzdek.net>';
 
