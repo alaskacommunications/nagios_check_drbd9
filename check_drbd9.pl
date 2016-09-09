@@ -179,6 +179,7 @@ sub HELP_MESSAGE()
 {
    printf STDERR ("Usage: %s [OPTIONS]\n", $PROGRAM_NAME);
    printf STDERR ("OPTIONS:\n");
+   printf STDERR ("  -0              return 'UNKNOWN' instead of 'OKAY' if no resources are found\n");
    printf STDERR ("  -c state        change specified state to 'CRIT' (example: SyncSource)\n");
    printf STDERR ("  -d pattern      same as '-i', added for compatibility with legacy check\n");
    printf STDERR ("  -h              display this message\n");
@@ -383,7 +384,7 @@ sub chk_drbd_config($)
    $Getopt::Std::STANDARD_HELP_VERSION=1;
 
    $opt = {};
-   if (!(getopts("d:c:hi:lo:qtvVw:x:", $opt)))
+   if (!(getopts("0d:c:hi:lo:qtvVw:x:", $opt)))
    {
       HELP_MESSAGE();
       return(3);
@@ -401,6 +402,7 @@ sub chk_drbd_config($)
    $cnf->{'quiet'}    = defined($opt->{'q'}) ? $opt->{'q'} : 0;
    $cnf->{'verbose'}  = defined($opt->{'v'}) ? $opt->{'v'} : 0;
    $cnf->{'list_all'} = defined($opt->{'l'}) ? $opt->{'l'} : 0;
+   $cnf->{'zero'}     = defined($opt->{'0'}) ? $opt->{'0'} : 0;
 
    # override errors for okay
    $list = defined($opt->{'o'}) ? $opt->{'o'} : '';
@@ -578,8 +580,7 @@ sub chk_drbd_nagios_code($)
       return(1);
    };
 
-
-   if ($cnf->{'count_okay'} != 0)
+   if (($cnf->{'count_okay'} != 0) || ($cnf->{'zero'} == 0))
    {
       return(0);
    };
