@@ -51,6 +51,7 @@ our $VERSION         = '0.1';
 our $DESCRIPTION     = 'Checks status of DRBD';
 our $AUTHOR          = 'David M. Syzdek <david@syzdek.net>';
 
+$ENV                 = ();
 $ENV{PATH}           = '/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin';
 
 
