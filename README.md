@@ -146,6 +146,56 @@ Another example:
         syzdek@hypervisor$
 
 
+Example Icinga 2 Configurations
+-------------------------------
+
+Example configuration object for Icinga 2:
+
+     object CheckCommand "check_drbd9" {
+       import "plugin-check-command"
+       command = [ PluginDir + "/check_drbd9" ]
+     
+       arguments = {
+         "-c" = { 
+           value       = "$drbd9_crit_states$"
+           description = "change specified state to 'CRIT' (example: SyncSource)"
+         }
+         "-w" = {
+           value       = "$drbd9_warn_states$"
+           description = "change specified state to 'WARN' (example: SyncTarget)"
+         }
+         "-o" = {
+           value       = "$drbd9_okay_states$"
+           description = "change specified state to 'OKAY' (example: StandAlone)"
+         }
+         "-i" = {
+           value       = "$drbd9_include$"
+           description = "include resource name or resource minor (default: all)"
+         }
+         "-x" = {
+           value       = "$drbd9_exclude$"
+           description = "exclude resource name or resource minor"
+         }
+         "-l" = {
+           set_if      = "$drbd9_list_all$"
+           description = "list all OKAY resources after CRIT and WARN resources"
+         }
+         "-v" = {
+           set_if      = "$drbd9_okay$"
+           description = "display OKAY resources"
+         }
+         "-q" = {
+           set_if      = "$drbd9_quiet$"
+           description = "quiet output"
+         }
+         "-t" = {              
+           set_if      = "$drbd9_terse$"
+           description = "display terse details"
+         }
+       }
+     }
+
+
 Example Nagios Configurations
 -----------------------------
 
