@@ -43,8 +43,6 @@ use strict;
 use Getopt::Std;
 use Data::Dumper;
 
-$Data::Dumper::Indent = 1;
-
 $|++;
 
 our $PROGRAM_NAME    = 'dump_drbd9.pl';

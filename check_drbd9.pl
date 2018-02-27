@@ -42,8 +42,6 @@ use warnings;
 use strict;
 use Getopt::Std;
 
-$Data::Dumper::Indent = 1;
-
 $|++;
 
 our $PROGRAM_NAME    = 'check_drbd9.pl';
