@@ -45,7 +45,7 @@ use Getopt::Std;
 $|++;
 
 our $PROGRAM_NAME    = 'check_drbd9.pl';
-our $VERSION         = '0.2';
+our $VERSION         = '0.3';
 our $DESCRIPTION     = 'Checks status of DRBD';
 our $AUTHOR          = 'David M. Syzdek <david@syzdek.net>';
 

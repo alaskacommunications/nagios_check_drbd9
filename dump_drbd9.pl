@@ -46,7 +46,7 @@ use Data::Dumper;
 $|++;
 
 our $PROGRAM_NAME    = 'dump_drbd9.pl';
-our $VERSION         = '0.2';
+our $VERSION         = '0.3';
 our $DESCRIPTION     = 'Dump hash structure of DRBD resources';
 our $AUTHOR          = 'David M. Syzdek <david@syzdek.net>';
 
