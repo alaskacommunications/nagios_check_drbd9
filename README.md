@@ -107,7 +107,7 @@ Example Output
         lab.prv.ldaptestmirror02 role:Secondary (OKAY)
         lab.prv.simestd role:Secondary (OKAY)
         lab.prv.wallette role:Secondary (OKAY)
-        |        
+        |
         syzdek@hypervisor$
 
 Another example:
@@ -144,7 +144,7 @@ Another example:
         lab.prv.ldaptestmirror02 role:Secondary (OKAY)
         lab.prv.simestd role:Primary (OKAY)
         lab.prv.wallette role:Secondary (OKAY)
-        |        
+        |
         syzdek@hypervisor$
 
 
@@ -190,7 +190,7 @@ Example configuration object for Icinga 2:
            set_if      = "$drbd9_quiet$"
            description = "quiet output"
          }
-         "-t" = {              
+         "-t" = {
            set_if      = "$drbd9_terse$"
            description = "display terse details"
          }
