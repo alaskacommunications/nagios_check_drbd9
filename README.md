@@ -26,6 +26,7 @@ check_drbd9.pl:
 
         Usage: check_drbd9.pl [OPTIONS]
         OPTIONS:
+          -0              return 'UNKNOWN' instead of 'OKAY' if no resources are found
           -c state        change specified state to 'CRIT' (example: SyncSource)
           -d pattern      same as '-i', added for compatibility with legacy check
           -h              display this message
@@ -34,6 +35,7 @@ check_drbd9.pl:
           -o state        change specified state to 'OKAY' (example: StandAlone)
           -q              quiet output
           -t              display terse details
+          -U              return 'CRIT' instead of 'UNKNOWN'
           -V              display program version
           -v              display OKAY resources
           -w state        change specified state to 'WARN' (example: SyncTarget)
