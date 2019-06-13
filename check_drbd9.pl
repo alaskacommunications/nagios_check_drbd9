@@ -187,6 +187,7 @@ sub HELP_MESSAGE()
    printf STDERR ("  -o state        change specified state to 'OKAY' (example: StandAlone)\n");
    printf STDERR ("  -q              quiet output\n");
    printf STDERR ("  -t              display terse details\n");
+   printf STDERR ("  -U              return 'CRIT' instead of 'UNKNOWN'\n");
    printf STDERR ("  -V              display program version\n");
    printf STDERR ("  -v              display OKAY resources\n");
    printf STDERR ("  -w state        change specified state to 'WARN' (example: SyncTarget)\n");
@@ -383,7 +384,7 @@ sub chk_drbd_config($)
    $Getopt::Std::STANDARD_HELP_VERSION=1;
 
    $opt = {};
-   if (!(getopts("0d:c:hi:lo:qtvVw:x:", $opt)))
+   if (!(getopts("0d:c:hi:lo:qtUvVw:x:", $opt)))
    {
       HELP_MESSAGE();
       return(3);
@@ -402,6 +403,7 @@ sub chk_drbd_config($)
    $cnf->{'verbose'}  = defined($opt->{'v'}) ? $opt->{'v'} : 0;
    $cnf->{'list_all'} = defined($opt->{'l'}) ? $opt->{'l'} : 0;
    $cnf->{'zero'}     = defined($opt->{'0'}) ? $opt->{'0'} : 0;
+   $cnf->{'uncrit'}   = defined($opt->{'U'}) ? $opt->{'U'} : 0;
 
    # override errors for okay
    $list = defined($opt->{'o'}) ? $opt->{'o'} : '';
@@ -584,6 +586,11 @@ sub chk_drbd_nagios_code($)
       return(0);
    };
 
+   if ($cnf->{'uncrit'} != 0)
+   {
+      return(2);
+   };
+
    return(3);
 }
 
@@ -635,6 +642,10 @@ sub chk_drbd_walk($)
    if ($? != 0)
    {
       printf("DRBD UNKNOWN: error running drbdadm\n");
+      if ($cnf->{'uncrit'} != 0)
+      {
+         return(2);
+      };
       return(3);
    };
    if ($sh_resources =~ /^$/)
@@ -655,6 +666,10 @@ sub chk_drbd_walk($)
       };
    } else {
       printf("DRBD UNKNOWN: invalid DRBD resource names found\n");
+      if ($cnf->{'uncrit'} != 0)
+      {
+         return(2);
+      };
       return(3);
    };
 
@@ -664,6 +679,10 @@ sub chk_drbd_walk($)
    if ($? != 0)
    {
       printf("DRBD UNKNOWN: error running drbdsetup\n");
+      if ($cnf->{'uncrit'} != 0)
+      {
+         return(2);
+      };
       return(3);
    };
    chomp(@lines);
@@ -774,6 +793,10 @@ sub main(@)
             return(0);
          };
          $rc = 3;
+      };
+      if ( ($rc == 3) && ($cnf->{'uncrit'} != 0) )
+      {
+         return(2);
       };
       return($rc);
    };
