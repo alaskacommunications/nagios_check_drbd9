@@ -735,7 +735,7 @@ sub chk_drbd_walk($)
    {
       if ($name =~ $cnf->{'exclude'})
       {
-         continue;
+         next;
       };
       if ($name =~ $cnf->{'include'})
       {
