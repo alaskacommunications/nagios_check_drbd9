@@ -808,7 +808,7 @@ sub main(@)
    # print summary
    if ($cnf->{'count_all'} == $cnf->{'count_okay'})
    {
-      printf("DRBD OKAY: %s\n", $cnf->{'version'});
+      printf("DRBD: %s (%i resources)\n", $cnf->{'version'}, $cnf->{'count_all'});
    } else {
       printf("DRBD: ");
       if ($cnf->{'count_crit'} != 0)
