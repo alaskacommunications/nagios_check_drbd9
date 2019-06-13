@@ -608,8 +608,8 @@ sub chk_drbd_walk($)
    # parse /proc/drbd
    if (!(open(FD, '</proc/drbd')))
    {
-      printf("DRBD UNKNOWN: kernel module is not loaded\n");
-      return(3);
+      printf("DRBD kernel module is not loaded\n");
+      return(-1);
    };
    chomp(@lines = <FD>);
    close(FD);
@@ -767,6 +767,14 @@ sub main(@)
    # collects DRBD information
    if (($rc = chk_drbd_walk($cnf)) != 0)
    {
+      if ($rc == -1)
+      {
+         if ( $cnf->{'zero'} == 0 )
+         {
+            return(0);
+         };
+         $rc = 3;
+      };
       return($rc);
    };
 
