@@ -2,6 +2,11 @@
 Nagios DRBD 9 Checks
 ====================
 
+#### 0.4
+   * changing status for DRBD module not loaded (syzdek)
+   * adding option to convert UNKNOWN to CRIT (syzdek)
+   * updating OKAY summary line
+
 #### 0.3
    * fixing typo in check_drbd.pl (syzdek)
    * removing references to Data::Dumper (syzdek)
