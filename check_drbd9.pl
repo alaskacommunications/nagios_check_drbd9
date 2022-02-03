@@ -189,6 +189,7 @@ sub HELP_MESSAGE()
    printf STDERR ("  -t              display terse details\n");
    printf STDERR ("  -V              display program version\n");
    printf STDERR ("  -v              display OKAY resources\n");
+   printf STDERR ("  -s              include stacked resources\n");
    printf STDERR ("  -w state        change specified state to 'WARN' (example: SyncTarget)\n");
    printf STDERR ("  -x pattern      exclude resource name or resource minor\n");
    printf STDERR ("\n");
@@ -383,7 +384,7 @@ sub chk_drbd_config($)
    $Getopt::Std::STANDARD_HELP_VERSION=1;
 
    $opt = {};
-   if (!(getopts("0d:c:hi:lo:qtvVw:x:", $opt)))
+   if (!(getopts("0d:c:hi:lo:qtvVw:x:s", $opt)))
    {
       HELP_MESSAGE();
       return(3);
@@ -402,6 +403,7 @@ sub chk_drbd_config($)
    $cnf->{'verbose'}  = defined($opt->{'v'}) ? $opt->{'v'} : 0;
    $cnf->{'list_all'} = defined($opt->{'l'}) ? $opt->{'l'} : 0;
    $cnf->{'zero'}     = defined($opt->{'0'}) ? $opt->{'0'} : 0;
+   $cnf->{'stacked'}  = defined($opt->{'s'}) ? $opt->{'s'} : 0;
 
    # override errors for okay
    $list = defined($opt->{'o'}) ? $opt->{'o'} : '';
@@ -632,6 +634,11 @@ sub chk_drbd_walk($)
 
    # builds resources
    $sh_resources = `/usr/sbin/drbdadm sh-resources 2> /dev/null`;
+   if ($cnf->{'stacked'} != 0)
+   {
+      $sh_resources = $sh_resources . '' .`/usr/sbin/drbdadm sh-resources --stacked 2> /dev/null`;
+   };
+
    if ($? != 0)
    {
       printf("DRBD UNKNOWN: error running drbdadm\n");
